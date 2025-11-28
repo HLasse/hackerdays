@@ -31,8 +31,11 @@ class Pipeline:
 
     def _build_clients(self):
         self.encoder = SentenceTransformer(self.ENCODER_MODEL)
+        print("Encoder model loaded.")
         self.db_client = QdrantClient(url=self.valves.qdrant_url)
+        print("Qdrant client connected.")
         self.generator = OllamaClient(host=self.valves.ollama_url)
+        print("Ollama client connected.")
 
     async def on_startup(self):
         self._build_clients()
