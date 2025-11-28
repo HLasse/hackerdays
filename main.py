@@ -8,6 +8,10 @@ from ollama import Client as OllamaClient
 import os
 
 
+class DummyEncoder:
+    def encode(self, text: str) -> list[float]:
+        return [0.0] * 768  # Dummy vector of size 768
+
 class Pipeline:
     class Valves(BaseModel):
         MODEL_ID: str = "RAG Pipeline"
@@ -30,7 +34,8 @@ class Pipeline:
         )
 
     def _build_clients(self):
-        self.encoder = SentenceTransformer(self.ENCODER_MODEL)
+        # self.encoder = SentenceTransformer(self.ENCODER_MODEL)
+        self.encoder = DummyEncoder()  # Use dummy encoder for testing
         print("Encoder model loaded.")
         self.db_client = QdrantClient(url=self.valves.qdrant_url)
         print("Qdrant client connected.")
