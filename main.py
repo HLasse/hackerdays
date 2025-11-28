@@ -58,7 +58,9 @@ class Pipeline:
         prompt = "You are a helpful AI assistant. Use the following context to answer the question."
 
         # convert message to vector
-        query_vector = self.encoder.encode("passage: " + user_message).tolist()
+        #query_vector = self.encoder.encode("passage: " + user_message).tolist()
+        query_vector = self.encoder.encode("passage: " + user_message)
+
         # query Qdrant
         hits = self.db_client.query_points(
             collection_name=self.valves.collection_name,
