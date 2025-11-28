@@ -36,6 +36,7 @@ class Pipeline:
 
     async def on_startup(self):
         self._build_clients()
+        print("Startup complete.")
         pass
 
     async def on_shutdown(self):
