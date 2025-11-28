@@ -30,10 +30,9 @@ class Pipeline:
         )
 
     def _build_clients(self):
-        # self.encoder = SentenceTransformer(self.ENCODER_MODEL)
-        # self.db_client = QdrantClient(url=self.valves.qdrant_url)
-        # self.generator = OllamaClient(host=self.valves.ollama_url)
-        pass
+        self.encoder = SentenceTransformer(self.ENCODER_MODEL)
+        self.db_client = QdrantClient(url=self.valves.qdrant_url)
+        self.generator = OllamaClient(host=self.valves.ollama_url)
 
     async def on_startup(self):
         self._build_clients()
@@ -47,10 +46,6 @@ class Pipeline:
     def pipe(
         self, user_message: str, model_id: str, messages: list[dict], body: dict
     ) -> Union[str, Generator, Iterator]:
-        self.encoder = SentenceTransformer(self.ENCODER_MODEL)
-        self.db_client = QdrantClient(url=self.valves.qdrant_url)
-        self.generator = OllamaClient(host=self.valves.ollama_url)
-        
         # RAG main prompt
         prompt = "You are a helpful AI assistant. Use the following context to answer the question."
 
